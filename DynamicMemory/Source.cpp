@@ -8,7 +8,8 @@ int* push_back(int* arr, int& n, int value);
 int* pushFront(int* arr, int& n, int value);
 int* insert(int* arr, int& n, int value, int indexValue);
 
-int* PopBack(int* arr, int& n); 
+int* PopBack(int* arr, int& n);
+int* PopFront(int* arr, int& n);
 
 void main()
 {
@@ -38,9 +39,14 @@ void main()
 	cout << "Исходный массив с добавленным элементом в конце, в начале и по индеку" << endl;
 	Print(arr, n);*/ 
 
-	arr = PopBack(arr, n); 
+	/*arr = PopBack(arr, n); 
 	cout << "Исходный массив с удалением одного элемента с конца" << endl;
+	Print(arr, n);*/ 
+
+	arr = PopFront(arr, n); 
+	cout << "Исходный массив с удалением одного элемента сначала " << endl; 
 	Print(arr, n); 
+
 	delete[] arr;//Memory leaks
 }
 
@@ -122,6 +128,18 @@ int* insert(int* arr, int& n, int value, int indexValue)
 
 int* PopBack(int* arr, int& n)
 {
+	n--; 
+	return arr; 
+}
+int* PopFront(int* arr, int& n)
+{
+	int* Buffer = new int[n - 1]; 
+	for (int i = 0; i < n - 1; i++)
+	{
+		Buffer[i] = arr[i + 1]; 
+	}
+	delete[] arr; 
+	arr = Buffer; 
 	n--; 
 	return arr; 
 }
