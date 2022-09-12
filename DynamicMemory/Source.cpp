@@ -6,6 +6,7 @@ void Print(int* arr, const int n);
 
 int* push_back(int* arr, int& n, int value);
 int* pushFront(int* arr, int& n, int value);
+int* insert(int* arr, int& n, int value, int indexValue);
 
 void main()
 {
@@ -24,7 +25,12 @@ void main()
 
 	//Print(arr, n);
 
-	arr = pushFront(arr, n, value);
+	/*arr = pushFront(arr, n, value);
+	Print(arr, n); */
+
+	int indexValue; 
+	cout << "Введите индект добавляемого значения: "; cin >> indexValue; 
+	arr = insert(arr, n, value, indexValue); 
 	Print(arr, n); 
 
 	delete[] arr;//Memory leaks
@@ -88,7 +94,23 @@ int* pushFront(int* arr, int& n, int value)
 	n++;
 	return arr; 
 }
-
+int* insert(int* arr, int& n, int value, int indexValue)
+{
+	int* Buffer = new int[n + 1];
+	for (int i = 0; i < n; i++)
+	{
+		Buffer[i] = arr[i];
+	}
+	delete[]arr;
+	arr = Buffer; 
+	for (int i = n; i >= indexValue-1; i--)
+	{
+		arr[i] = arr[i-1]; 
+	}
+	arr[indexValue-1] = value; 
+	n++; 
+	return arr; 
+}
 /*
 -------------------------------------------------
 Debug Assertion Failed:
