@@ -10,6 +10,7 @@ int* insert(int* arr, int& n, int value, int indexValue);
 
 int* PopBack(int* arr, int& n);
 int* PopFront(int* arr, int& n);
+int* Erase(int* arr, int& n, int indexErase);
 
 void main()
 {
@@ -43,9 +44,14 @@ void main()
 	cout << "Исходный массив с удалением одного элемента с конца" << endl;
 	Print(arr, n);*/ 
 
-	arr = PopFront(arr, n); 
+	arr=PopFront(arr, n); 
 	cout << "Исходный массив с удалением одного элемента сначала " << endl; 
 	Print(arr, n); 
+
+	/*int indexErase;
+	cout << "Введите индекс элемента, который будет удален из массива: "; cin >> indexErase;
+	arr = Erase(arr, n, indexErase);
+	Print(arr, n);*/ 
 
 	delete[] arr;//Memory leaks
 }
@@ -139,6 +145,20 @@ int* PopFront(int* arr, int& n)
 		Buffer[i] = arr[i + 1]; 
 	}
 	delete[] arr; 
+	arr = Buffer; 
+	n--; 
+	return arr; 
+}
+int* Erase(int* arr, int& n, int indexErase)
+{
+	int* Buffer = new int[n - 1]; 
+	for (int i = 0; i < n; i++)
+	{
+		if (i = indexErase - 1) continue;
+		else if (i > indexErase-1) Buffer[i-1] = arr[i]; 
+		else Buffer[i] = arr[i]; 
+	}
+	delete[] arr;
 	arr = Buffer; 
 	n--; 
 	return arr; 
