@@ -8,6 +8,8 @@ int* push_back(int* arr, int& n, int value);
 int* pushFront(int* arr, int& n, int value);
 int* insert(int* arr, int& n, int value, int indexValue);
 
+int* PopBack(int* arr, int& n); 
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -16,13 +18,13 @@ void main()
 	int* arr = new int[n];
 
 	FillRand(arr, n);
-cout << "Исходный массив" << endl; 
+	cout << "Исходный массив" << endl; 
 	Print(arr, n);
 
-	int value;
-	cout << "Введите добавляемое значение: "; cin >> value;
+	/*int value;
+	cout << "Введите добавляемое значение: "; cin >> value;*/
 
-	arr = push_back(arr, n, value);
+	/*arr = push_back(arr, n, value);
 	cout << "Исходный массив с добавленым элементом в конце" << endl;
 	Print(arr, n);
 
@@ -34,8 +36,11 @@ cout << "Исходный массив" << endl;
 	cout << "Введите индект добавляемого значения: "; cin >> indexValue; 
 	arr = insert(arr, n, value, indexValue); 
 	cout << "Исходный массив с добавленным элементом в конце, в начале и по индеку" << endl;
-	Print(arr, n); 
+	Print(arr, n);*/ 
 
+	arr = PopBack(arr, n); 
+	cout << "Исходный массив с удалением одного элемента с конца" << endl;
+	Print(arr, n); 
 	delete[] arr;//Memory leaks
 }
 
@@ -112,6 +117,12 @@ int* insert(int* arr, int& n, int value, int indexValue)
 	}
 	arr[indexValue-1] = value; 
 	n++; 
+	return arr; 
+}
+
+int* PopBack(int* arr, int& n)
+{
+	n--; 
 	return arr; 
 }
 /*
