@@ -3,8 +3,12 @@ using namespace std;
 using std::cin; 
 using std::cout;
 using std::endl;
+
 void FillRand(int arr[], const int n);
+void FillRand(int** arr, const int rows, const int cols);
+
 void Print(int* arr, const int n);
+void Print(int** arr, const int rows, const int cols);
 
 int* push_back(int* arr, int& n, int value);
 int* pushFront(int* arr, int& n, int value);
@@ -69,21 +73,13 @@ void main()
 	{
 		arr[i] = new int[cols]; 
 	}
+	FillRand (arr, rows, cols);
+	Print(arr, rows, cols);
 	for (int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
-		{
-			arr[i][j] = rand() % 100;
-		}
+		delete[]arr[i]; 
 	}
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < cols; j++)
-		{
-			cout << arr[i][j] << "\t";
-		}
-		cout << endl; 
-	}
+	delete[]arr; 
 }
 
 void FillRand(int arr[], const int n)
@@ -94,6 +90,17 @@ void FillRand(int arr[], const int n)
 		*(arr + i) = rand() % 100;
 	}
 }
+void FillRand(int** arr, const int rows, const int cols)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			arr[i][j] = rand() % 100;
+		}
+	}
+}
+
 void Print(int* arr, const int n)
 {
 	for (int i = 0; i < n; i++)
@@ -102,6 +109,18 @@ void Print(int* arr, const int n)
 	}
 	cout << endl;
 }
+void Print(int** arr, const int rows, const int cols) 
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cout << arr[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
 
 int* push_back(int* arr, int& n, int value)
 {
@@ -193,6 +212,7 @@ int* Erase(int* arr, int& n, int indexErase)
 	n--; 
 	return arr; 
 }
+
 /*
 -------------------------------------------------
 Debug Assertion Failed:
