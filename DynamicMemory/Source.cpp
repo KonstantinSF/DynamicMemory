@@ -1,6 +1,8 @@
 ﻿#include<iostream>
 using namespace std;
-
+using std::cin; 
+using std::cout;
+using std::endl;
 void FillRand(int arr[], const int n);
 void Print(int* arr, const int n);
 
@@ -12,9 +14,13 @@ int* PopBack(int* arr, int& n);
 int* PopFront(int* arr, int& n);
 int* Erase(int* arr, int& n, int indexErase);
 
+//#define DYNAMIC_MEMORY_1
+#define DYNAMIC_MEMORY_2
+
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef DYNAMIC_MEMORY_1
 	int n;
 	cout << "Введите размер массива: "; cin >> n;
 	int* arr = new int[n];
@@ -44,9 +50,9 @@ void main()
 	cout << "Исходный массив с удалением одного элемента с конца" << endl;
 	Print(arr, n);*/ 
 
-	arr=PopFront(arr, n); 
+	/*arr=PopFront(arr, n); 
 	cout << "Исходный массив с удалением одного элемента сначала " << endl; 
-	Print(arr, n); 
+	Print(arr, n); */
 
 	/*int indexErase;
 	cout << "Введите индекс элемента, который будет удален из массива: "; cin >> indexErase;
@@ -54,6 +60,30 @@ void main()
 	Print(arr, n);*/ 
 
 	delete[] arr;//Memory leaks
+#endif
+	int rows, cols; 
+	cout << "Введите кол-во строк: "; cin >> rows; 
+	cout << "Введите кол-во элементов строки: "; cin >> cols;
+	int** arr = new int* [rows]; 
+	for (int i = 0; i < rows; i++)
+	{
+		arr[i] = new int[cols]; 
+	}
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			arr[i][j] = rand() % 100;
+		}
+	}
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cout << arr[i][j] << "\t";
+		}
+		cout << endl; 
+	}
 }
 
 void FillRand(int arr[], const int n)
@@ -154,7 +184,7 @@ int* Erase(int* arr, int& n, int indexErase)
 	int* Buffer = new int[n - 1]; 
 	for (int i = 0; i < n; i++)
 	{
-		if (i = indexErase - 1) continue;
+		if (i == indexErase - 1) continue;
 		else if (i > indexErase-1) Buffer[i-1] = arr[i]; 
 		else Buffer[i] = arr[i]; 
 	}
