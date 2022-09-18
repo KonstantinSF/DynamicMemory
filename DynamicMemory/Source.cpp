@@ -19,7 +19,7 @@ int* PopFront(int* arr, int& n);
 int* Erase(int* arr, int& n, int indexErase);
 
 //#define DYNAMIC_MEMORY_1
-#define DYNAMIC_MEMORY_2
+//#define DYNAMIC_MEMORY_2
 
 void main()
 {
@@ -58,13 +58,15 @@ void main()
 	cout << "Исходный массив с удалением одного элемента сначала " << endl; 
 	Print(arr, n); */
 
-	/*int indexErase;
+	int indexErase;
 	cout << "Введите индекс элемента, который будет удален из массива: "; cin >> indexErase;
 	arr = Erase(arr, n, indexErase);
-	Print(arr, n);*/ 
+	Print(arr, n); 
 
 	delete[] arr;//Memory leaks
 #endif
+
+#ifdef DYNAMIC_MEMORY_2
 	int rows, cols; 
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
@@ -80,6 +82,7 @@ void main()
 		delete[]arr[i]; 
 	}
 	delete[]arr; 
+#endif
 }
 
 void FillRand(int arr[], const int n)
