@@ -20,6 +20,7 @@ int* Erase(int* arr, int& n, int indexErase);
 
 void Allocate(int** arr, int rows, int cols);//выделяет память для динамич раздела
 void Clear(int** arr, int rows, int cols);//удаляет динамич раздела после вып-ия всех действий над ним
+int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
 
 //#define DYNAMIC_MEMORY_1
 #define DYNAMIC_MEMORY_2
@@ -78,6 +79,12 @@ void main()
 	Allocate(arr, rows, cols);
 	FillRand (arr, rows, cols);
 	Print(arr, rows, cols);
+
+	arr=Push_row_Back(arr, rows, cols); 
+	//FillRand(arr, rows, cols); 
+	cout << "The Array with additional row: " << endl; 
+	Print(arr, rows, cols); 
+
 	Clear(arr, rows, cols); 
 	
 #endif
@@ -231,6 +238,22 @@ void Clear(int** arr, int rows, int cols)
 	delete[] arr;
 }
 
+int** Push_row_Back(int** arr, int& rows, int cols)
+{
+	int** buffer = new int* [rows+1];
+	Allocate(buffer, rows + 1, cols); 
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			buffer[i][j] = arr[i][j];  
+		}
+	}
+	Clear(arr, rows, cols); 
+	arr = buffer; 
+	rows++;
+	return arr; 
+}
 /*
 -------------------------------------------------
 Debug Assertion Failed:
