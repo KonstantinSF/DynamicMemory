@@ -249,6 +249,10 @@ int** Push_row_Back(int** arr, int& rows, int cols)
 			buffer[i][j] = arr[i][j];  
 		}
 	}
+	/*for (int j = 0; j < cols; j++)
+	{
+		buffer[rows + 1][j] = rand()%10;
+	}??? не считает*/
 	Clear(arr, rows, cols); 
 	arr = buffer; 
 	rows++;
