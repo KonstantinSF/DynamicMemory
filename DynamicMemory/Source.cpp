@@ -18,7 +18,8 @@ int* PopBack(int* arr, int& n);
 int* PopFront(int* arr, int& n);
 int* Erase(int* arr, int& n, int indexErase);
 
-void Allocate(int** arr, int rows, int cols);
+void Allocate(int** arr, int rows, int cols);//выделяет память для динамич раздела
+void Clear(int** arr, int rows, int cols);//удаляет динамич раздела после вып-ия всех действий над ним
 
 //#define DYNAMIC_MEMORY_1
 #define DYNAMIC_MEMORY_2
@@ -73,18 +74,12 @@ void main()
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
 	int** arr = new int* [rows]; 
-	/*for (int i = 0; i < rows; i++)
-	{
-		arr[i] = new int[cols]; 
-	}*/
+	
 	Allocate(arr, rows, cols);
 	FillRand (arr, rows, cols);
 	Print(arr, rows, cols);
-	for (int i = 0; i < rows; i++)
-	{
-		delete[]arr[i]; 
-	}
-	delete[]arr; 
+	Clear(arr, rows, cols); 
+	
 #endif
 }
 
@@ -225,6 +220,15 @@ void Allocate(int** arr, int rows, int cols)
 	{
 		arr[i] = new int[cols]; 
 	}
+}
+
+void Clear(int** arr, int rows, int cols)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete [] arr[i]; 
+	}
+	delete[] arr;
 }
 
 /*
