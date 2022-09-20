@@ -229,7 +229,7 @@ void Allocate(int** arr, int rows, int cols)
 {
 	for (int i = 0; i < rows; i++)
 	{
-		arr[i] = new int[cols]; 
+		arr[i] = new int[cols] {};
 	}
 }
 
@@ -270,7 +270,7 @@ int** Pop_row_back(int** arr, int& rows, int cols)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			buffer[i][j] = arr[i][j]; 
+			buffer[i][j] = arr[i][j];
 		}
 	}
 	Clear(arr, rows, cols); 
