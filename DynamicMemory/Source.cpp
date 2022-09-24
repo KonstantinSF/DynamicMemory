@@ -18,8 +18,8 @@ int* PopBack(int* arr, int& n);
 int* PopFront(int* arr, int& n);
 int* Erase(int* arr, int& n, int indexErase);
 
-void Allocate(int** arr, int rows, int cols);//выделяет память для динамич раздела
-void Clear(int** arr, int rows, int cols);//удаляет динамич раздела после вып-ия всех действий над ним
+int** Allocate(int rows, int cols);//выделяет память для динамич раздела
+void Clear(int** arr, int rows);//удаляет динамич раздела после вып-ия всех действий над ним
 int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
 int** Pop_row_back(int** arr, int& rows, int cols); //del last row in the array
 
@@ -75,9 +75,7 @@ void main()
 	int rows, cols; 
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
-	int** arr = new int* [rows]; 
-	
-	Allocate(arr, rows, cols);
+	int** arr = Allocate(rows, cols); 
 	FillRand (arr, rows, cols);
 	Print(arr, rows, cols);
 
@@ -89,7 +87,7 @@ void main()
 	arr = Pop_row_back(arr, rows, cols); 
 	cout << "The Array without row in the end: " << endl;
 	Print(arr, rows, cols); 
-	Clear(arr, rows, cols); 
+	Clear(arr, rows); 
 	
 #endif
 }
@@ -225,15 +223,17 @@ int* Erase(int* arr, int& n, int indexErase)
 	return arr; 
 }
 
-void Allocate(int** arr, int rows, int cols)
+int** Allocate(int rows, int cols)
 {
+	int** arr = new int* [rows];
 	for (int i = 0; i < rows; i++)
 	{
 		arr[i] = new int[cols] {};
 	}
+	return arr; 
 }
 
-void Clear(int** arr, int rows, int cols)
+void Clear(int** arr, int rows)
 {
 	for (int i = 0; i < rows; i++)
 	{
@@ -244,39 +244,26 @@ void Clear(int** arr, int rows, int cols)
 
 int** Push_row_Back(int** arr, int& rows, int cols)
 {
-	int** buffer = new int* [rows+1];
-	Allocate(buffer, rows + 1, cols); 
+	int** buffer = new int* [rows + 1];
 	for (int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
-		{
-			buffer[i][j] = arr[i][j];  
-		}
+		buffer[i] = arr[i];
 	}
-	/*for (int j = 0; j < cols; j++)
-	{
-		buffer[rows + 1][j] = rand()%10;
-	}??? не считает*/
-	Clear(arr, rows, cols); 
-	arr = buffer; 
+	delete arr;
+	buffer[rows] = new int[cols] {};
 	rows++;
-	return arr; 
+	return buffer;
 }
 int** Pop_row_back(int** arr, int& rows, int cols)
 {
 	int** buffer = new int* [rows - 1]; 
-	Allocate(buffer, rows - 1, cols); 
-	for (int i = 0; i < rows-1; i++)
+	for (int i = 0; i < rows - 1; i++)
 	{
-		for (int j = 0; j < cols; j++)
-		{
-			buffer[i][j] = arr[i][j];
-		}
+		buffer[i] = arr[i];
 	}
-	Clear(arr, rows, cols); 
-	arr = buffer; 
-	rows--; 
-	return arr; 
+	delete arr; 
+	rows++;
+	return buffer; 
 }
 /*
 -------------------------------------------------
