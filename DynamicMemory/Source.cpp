@@ -21,6 +21,8 @@ int* Erase(int* arr, int& n, int indexErase);
 int** Allocate(int rows, int cols);//выделяет память для динамич раздела
 void Clear(int** arr, int rows);//удаляет динамич раздела после вып-ия всех действий над ним
 int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
+int** Push_row_front(int** arr, int& rows, int cols); //add a row in the begining of array
+
 int** Pop_row_back(int** arr, int& rows, int cols); //del last row in the array
 
 //#define DYNAMIC_MEMORY_1
@@ -81,7 +83,10 @@ void main()
 
 	arr=Push_row_Back(arr, rows, cols); 
 	//FillRand(arr, rows, cols); 
-	cout << "The Array with additional row: " << endl; 
+	cout << "The Array with additional row in the end: " << endl; 
+	Print(arr, rows, cols); 
+	cout << "The Array with additional row in the begining: " << endl;
+	arr = Push_row_front (arr, rows, cols);
 	Print(arr, rows, cols); 
 
 	arr = Pop_row_back(arr, rows, cols); 
@@ -254,6 +259,18 @@ int** Push_row_Back(int** arr, int& rows, int cols)
 	rows++;
 	return buffer;
 }
+int** Push_row_front(int** arr, int& rows, int cols)
+{
+	int** buffer = new int* [rows + 1]; 
+	for (int i = 0; i < rows; i++)
+	{
+		buffer[i + 1] = arr[i]; 
+	}
+	delete arr; 
+	buffer[0] = new int [cols] {}; 
+	rows++; 
+	return buffer; 
+}
 int** Pop_row_back(int** arr, int& rows, int cols)
 {
 	int** buffer = new int* [rows - 1]; 
@@ -262,7 +279,7 @@ int** Pop_row_back(int** arr, int& rows, int cols)
 		buffer[i] = arr[i];
 	}
 	delete arr; 
-	rows++;
+	rows--;
 	return buffer; 
 }
 /*
