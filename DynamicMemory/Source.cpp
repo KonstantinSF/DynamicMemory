@@ -29,6 +29,7 @@ int** Pop_row_back(int** arr, int& rows, int cols); //del last row in the array
 
 //#define DYNAMIC_MEMORY_1
 #define DYNAMIC_MEMORY_2
+//#define EXECUTION_TIME; 
 
 void main()
 {
@@ -80,29 +81,40 @@ void main()
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
 	int** arr = Allocate(rows, cols); 
+#ifndef EXECUTION_TIME
 	FillRand (arr, rows, cols);
 	Print(arr, rows, cols);
-
+#endif
 	arr=Push_row_Back(arr, rows, cols); 
 	//FillRand(arr, rows, cols); 
 	cout << "The Array with additional row in the end: " << endl; 
-	Print(arr, rows, cols); 
+#ifndef EXECUTION_TIME
+	Print(arr, rows, cols);
+#endif // !EXECUTION_TIME
+
 	cout << "The Array with additional row in the begining: " << endl;
 	arr = Push_row_front (arr, rows, cols);
 	Print(arr, rows, cols); 
-
 	arr = Pop_row_back(arr, rows, cols); 
 	cout << "The Array without row in the end: " << endl;
 	Print(arr, rows, cols);
+#ifdef EXECUTION_TIME
 	clock_t end = clock(); //declaration end
 	clock_t start = clock();//declaration start
+#endif
 	cout << "The Array with new column in the end: " << endl;
 	system("pause"); //for press the button
-	start = clock(); 
+#ifdef EXECUTION_TIME
+	start = clock();
+#endif // EXECUTION_TIME
+
 	Push_col_Back(arr, rows, cols); 
-	end = clock(); 
+#ifdef EXECUTION_TIME
+	end = clock();
 	CLOCKS_PER_SEC; 
-	cout << "Time for operation " << end - start<<"c" << endl;
+	cout << "Time for operation " << end - start << "c" << endl;
+#endif // EXECUTION_TIME
+
 	Print(arr, rows, cols); 
 	Pop_col_Back(arr, rows, cols);
 	cout << "Array without column in the end of array " << endl; 
