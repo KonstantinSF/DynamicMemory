@@ -18,7 +18,7 @@ int* PopBack(int* arr, int& n);
 int* PopFront(int* arr, int& n);
 int* Erase(int* arr, int& n, int indexErase);
 
-int** Allocate(int rows, int cols);//выделяет память для динамич раздела
+template <typename T> T ** Allocate(int rows, int cols);//выделяет память для динамич раздела
 void Clear(int** arr, int rows);//удаляет динамич раздела после вып-ия всех действий над ним
 int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
 void Push_col_Back(int** arr, int rows, int& cols); // add a col in the end of array
@@ -80,7 +80,7 @@ void main()
 	int rows, cols; 
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
-	int** arr = Allocate(rows, cols); 
+	int** arr = Allocate<int>(rows, cols); 
 #ifndef EXECUTION_TIME
 	FillRand (arr, rows, cols);
 	Print(arr, rows, cols);
@@ -255,12 +255,12 @@ int* Erase(int* arr, int& n, int indexErase)
 	return arr; 
 }
 
-int** Allocate(int rows, int cols)
+template <typename T> T** Allocate(int rows, int cols)
 {
-	int** arr = new int* [rows];
+	T** arr = new T* [rows];
 	for (int i = 0; i < rows; i++)
 	{
-		arr[i] = new int[cols] {};
+		arr[i] = new T[cols] {};
 	}
 	return arr; 
 }
