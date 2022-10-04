@@ -22,6 +22,7 @@ int** Allocate(int rows, int cols);//выделяет память для дин
 void Clear(int** arr, int rows);//удаляет динамич раздела после вып-ия всех действий над ним
 int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
 void Push_col_Back(int** arr, int rows, int& cols); // add a col in the end of array
+void Pop_col_Back(int** arr, int rows, int& cols);//del a col from the end of array
 int** Push_row_front(int** arr, int& rows, int cols); //add a row in the begining of array
 
 int** Pop_row_back(int** arr, int& rows, int cols); //del last row in the array
@@ -100,7 +101,11 @@ void main()
 	start = clock(); 
 	Push_col_Back(arr, rows, cols); 
 	end = clock(); 
-	cout << "Time for operation " << end - start << endl; 
+	CLOCKS_PER_SEC; 
+	cout << "Time for operation " << end - start<<"c" << endl;
+	Print(arr, rows, cols); 
+	Pop_col_Back(arr, rows, cols);
+	cout << "Array without column in the end of array " << endl; 
 	Print(arr, rows, cols); 
 	Clear(arr, rows); 
 	
@@ -282,6 +287,17 @@ void Push_col_Back(int** arr, int rows, int& cols)
 		arr[i] = buffer; 
 	}
 	cols++; 
+}
+void Pop_col_Back(int** arr, int rows, int& cols)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		int* buffer = new int[cols - 1]{}; 
+		for (int j = 0; j < cols - 1; j++) buffer[j] = arr[i][j]; 
+		delete[] arr[i];
+		arr[i] = buffer; 
+	}
+	cols--;
 }
 int** Push_row_front(int** arr, int& rows, int cols)
 {
