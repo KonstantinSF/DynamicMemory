@@ -93,8 +93,14 @@ void main()
 	arr = Pop_row_back(arr, rows, cols); 
 	cout << "The Array without row in the end: " << endl;
 	Print(arr, rows, cols);
+	clock_t end = clock(); //declaration end
+	clock_t start = clock();//declaration start
 	cout << "The Array with new column in the end: " << endl;
+	system("pause"); //for press the button
+	start = clock(); 
 	Push_col_Back(arr, rows, cols); 
+	end = clock(); 
+	cout << "Time for operation " << end - start << endl; 
 	Print(arr, rows, cols); 
 	Clear(arr, rows); 
 	
@@ -291,13 +297,13 @@ int** Push_row_front(int** arr, int& rows, int cols)
 }
 int** Pop_row_back(int** arr, int& rows, int cols)
 {
-	int** buffer = new int* [rows - 1]; 
-	for (int i = 0; i < rows - 1; i++)
+	delete[] arr[rows - 1]; 
+	int** buffer = new int* [--rows]{};//переопределяем массив указателей, уменьшая кол-во строк
+	for (int i = 0; i < rows; i++)
 	{
 		buffer[i] = arr[i];
 	}
 	delete arr; 
-	rows--;
 	return buffer; 
 }
 /*
