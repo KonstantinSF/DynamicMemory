@@ -21,6 +21,7 @@ int* Erase(int* arr, int& n, int indexErase);
 template <typename T> T ** Allocate(int rows, int cols);//выделяет память для динамич раздела
 void Clear(int** arr, int rows);//удаляет динамич раздела после вып-ия всех действий над ним
 int** Push_row_Back(int** arr, int & rows, int cols); //add a row in the end of array
+int** Insert_row(int** arr, int& rows, int cols, int index_add);
 void Push_col_Back(int** arr, int rows, int& cols); // add a col in the end of array
 void Pop_col_Back(int** arr, int rows, int& cols);//del a col from the end of array
 int** Push_row_front(int** arr, int& rows, int cols); //add a row in the begining of array
@@ -77,9 +78,10 @@ void main()
 #endif
 
 #ifdef DYNAMIC_MEMORY_2
-	int rows, cols; 
+	int rows, cols, index_add;
 	cout << "Введите кол-во строк: "; cin >> rows; 
 	cout << "Введите кол-во элементов строки: "; cin >> cols;
+	cout << "Введите индекс добавляемой строки: "; cin >> index_add;
 	int** arr = Allocate<int>(rows, cols); 
 #ifndef EXECUTION_TIME
 	FillRand (arr, rows, cols);
@@ -333,6 +335,21 @@ int** Pop_row_back(int** arr, int& rows, int cols)
 	}
 	delete arr; 
 	return buffer; 
+}
+int** Insert_row(int** arr, int& rows, int cols, int index_add)
+{
+	int** Buffer = new int* [++rows]{};
+	for (int i = 0; i < rows; i++)
+	{
+		Buffer[i] = arr[i];
+	}
+	delete[] arr;
+	//rows++; 
+	for (int i = rows; i >= index_add; i--)
+	{
+		Buffer[i] = Buffer[i - 1];
+	}
+	return Buffer;
 }
 /*
 -------------------------------------------------
