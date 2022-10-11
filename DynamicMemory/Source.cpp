@@ -121,6 +121,9 @@ void main()
 	Pop_col_Back(arr, rows, cols);
 	cout << "Array without column in the end of array " << endl; 
 	Print(arr, rows, cols); 
+	arr = Insert_row(arr, rows, cols, index_add); 
+	cout << "Array with additional row insert by index: " << endl; 
+	Print(arr, rows, cols); 
 	Clear(arr, rows); 
 	
 #endif
@@ -338,17 +341,15 @@ int** Pop_row_back(int** arr, int& rows, int cols)
 }
 int** Insert_row(int** arr, int& rows, int cols, int index_add)
 {
-	int** Buffer = new int* [++rows]{};
-	for (int i = 0; i < rows; i++)
+	int** Buffer = new int* [rows+1]{};
+	for (int i = 0; i < rows+1; i++)
 	{
-		Buffer[i] = arr[i];
+		if (i < index_add-1) Buffer[i] = arr[i];
+		else if (i > index_add-1) Buffer[i] = arr[i-1];
 	}
 	delete[] arr;
-	//rows++; 
-	for (int i = rows; i >= index_add; i--)
-	{
-		Buffer[i] = Buffer[i - 1];
-	}
+	Buffer[index_add-1] = new int [cols] {}; 
+	rows++; 
 	return Buffer;
 }
 /*
